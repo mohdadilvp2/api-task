@@ -15,14 +15,14 @@ return [
     |
     */
 
-   'supported_countries' => [
-        'gb' => 'United Kindom',
+    'supported_countries' => [
+        'gb' => 'United Kingdom',
         'nl' => 'Netherlands',
         'de' => 'Germany',
         'fr' => 'France',
         'es' => 'Spain',
         'it' => 'Italy',
         'gr' => 'Greece'
-   ]
+    ]
 
 ];

@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
+
 class WikiDataResource extends JsonResource
 {
     /**
@@ -16,8 +17,8 @@ class WikiDataResource extends JsonResource
     {
         $pageData = Arr::first($this['query']['pages']);
         return [
-            'title' => $pageData['title'] ??'',
-            'description' => $pageData['extract'] ??''
+            'title' => $pageData['title'] ?? '',
+            'description' => ltrim(html_entity_decode(strip_tags($pageData['extract'])),"\n") ?? ''
         ];
     }
 }

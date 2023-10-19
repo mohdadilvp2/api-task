@@ -29,8 +29,8 @@ class ApiController extends Controller
         if (!$wikiData) {
             throw new HttpResponseException(response()->json([
                 'success'   => false,
-                'error_code' =>ErrorCodes::WIKI_API_ERROR,
-                'message'   => trans('error_messages.'.ErrorCodes::WIKI_API_ERROR),
+                'error_code' => ErrorCodes::WIKI_API_ERROR,
+                'message'   => trans('error_messages.' . ErrorCodes::WIKI_API_ERROR),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR));
         }
         $wikiData = new WikiDataResource($wikiData);
@@ -42,7 +42,7 @@ class ApiController extends Controller
             throw new HttpResponseException(response()->json([
                 'success'   => false,
                 'error_code' => ErrorCodes::YT_API_ERROR,
-                'message'   => trans('error_messages.'.ErrorCodes::YT_API_ERROR),
+                'message'   => trans('error_messages.' . ErrorCodes::YT_API_ERROR),
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR));
         }
         $youtubeData = new YoutubeDataResource($youtubeData);
