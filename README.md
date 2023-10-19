@@ -26,6 +26,8 @@ Copy the example env file and make the required configuration changes in the .en
 
     cp .env.example .env
 
+Update YT_KEY with correct youtube api key
+
 Generate a new application key
 
     php artisan key:generate
