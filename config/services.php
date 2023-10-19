@@ -35,7 +35,7 @@ return [
     ],
     'yt' => [
         'endpoint' => env('YT_ENDPOINT', 'https://www.googleapis.com/youtube/v3/'),
-        'key' => env('YT_KEY', 'AIzaSyBM7Sa_7DB8VzmQgUbCGKgIRMlSHI__GAA'),
+        'key' => env('YT_KEY', 'YT_KEY_NEED_TO_UPDATE'),
     ]
 
 ];
