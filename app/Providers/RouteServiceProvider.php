@@ -35,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip())->response(function (Request $request, array $headers) {
                 throw new HttpResponseException(response()->json([
                     'success'   => false,
-                    'message'   => trans('error_messages.'.ErrorCodes::YT_API_ERROR),
+                    'message'   => trans('error_messages.' . ErrorCodes::YT_API_ERROR),
                     'error_code' => ErrorCodes::TOO_MANY_REQUESTS
                 ], JsonResponse::HTTP_TOO_MANY_REQUESTS, $headers));
             });
