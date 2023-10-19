@@ -85,9 +85,9 @@ In this project we are fetching data from wikipedia and youtube and mergeing the
 #### Description
 This endpoint will fetch data from both wikipedia and youtube for a country
 #### Parameters
-- **country_code** (string, required): [gb, nl, de, fr, es, it, gr].
+- **country_code** (string, required): supported codes [gb, nl, de, fr, es, it, gr].
 - **per_page** (int, required): Maximum videos per page.
-- **page_token** (string, optional): Page token to fetch page from youtube api.
+- **page_token** (string, optional): Page token to fetch the page from YouTube API.
 
 #### Response
 

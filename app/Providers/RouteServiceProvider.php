@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('get_country_data', function (Request $request) {
-            return Limit::perMinute(20)->response(function (Request $request, array $headers) {
+            return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip())->response(function (Request $request, array $headers) {
                 throw new HttpResponseException(response()->json([
                     'success'   => false,
                     'message'   => trans('error_messages.'.ErrorCodes::YT_API_ERROR),
