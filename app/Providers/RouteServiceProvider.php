@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Constants\ErrorCodes;
+use Illuminate\Http\JsonResponse;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,11 +32,12 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('get_country_data', function (Request $request) {
-            return Limit::perMinute(30)->response(function (Request $request, array $headers) {
+            return Limit::perMinute(20)->response(function (Request $request, array $headers) {
                 throw new HttpResponseException(response()->json([
                     'success'   => false,
-                    'message'   => 'Too many requests, Please try after some time',
-                ], 429, $headers));
+                    'message'   => trans('error_messages.'.ErrorCodes::YT_API_ERROR),
+                    'error_code' => ErrorCodes::TOO_MANY_REQUESTS
+                ], JsonResponse::HTTP_TOO_MANY_REQUESTS, $headers));
             });
         });
 
