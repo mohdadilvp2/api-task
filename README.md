@@ -52,7 +52,7 @@ To install with [Docker](https://www.docker.com) using [Sail](https://laravel.co
 
 ```
 git clone https://github.com/mohdadilvp2/api-task.git
-cd studocu
+cd api-task
 cp .env.example .env
 composer install
 php artisan sail:install
