@@ -32,7 +32,8 @@ class ApiTest extends TestCase
         ]);
         $response = $this->get('/api/v1/get_country_data?country_code=gb&per_page=1');
         $response->assertStatus(500)->assertJson([
-            'error_code' => ErrorCodes::WIKI_API_ERROR
+            'error_code' => ErrorCodes::WIKI_API_ERROR,
+            'message' => trans('error_messages.'.ErrorCodes::WIKI_API_ERROR)
         ]);
     }
 
@@ -43,7 +44,8 @@ class ApiTest extends TestCase
         ]);
         $response = $this->get('/api/v1/get_country_data?country_code=gb&per_page=1');
         $response->assertStatus(500)->assertJson([
-            'error_code' => ErrorCodes::YT_API_ERROR
+            'error_code' => ErrorCodes::YT_API_ERROR,
+            'message' => trans('error_messages.'.ErrorCodes::YT_API_ERROR)
         ]);
     }
 }
