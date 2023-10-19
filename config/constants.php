@@ -16,7 +16,7 @@ return [
     */
 
    'supported_countries' => [
-        'uk' => 'United Kindom',
+        'gb' => 'United Kindom',
         'nl' => 'Netherlands',
         'de' => 'Germany',
         'fr' => 'France',

@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix'=> 'v1'], function(){
-    Route::get('/get_country_data', [ApiController::class, 'getCountryData'])->name('get_country_data');
+    Route::middleware(['throttle:get_country_data'])->get('/get_country_data', [ApiController::class, 'getCountryData'])->name('get_country_data');
 });

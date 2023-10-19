@@ -31,7 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'wiki' => [
-        'endpoint' => env('WIKI_ENDPOINT', 'https://en.wikipedia.org/w/api.php1'),
+        'endpoint' => env('WIKI_ENDPOINT', 'https://en.wikipedia.org/w/api.php'),
     ],
     'yt' => [
         'endpoint' => env('YT_ENDPOINT', 'https://www.googleapis.com/youtube/v3/'),

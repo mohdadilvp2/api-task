@@ -16,7 +16,7 @@ class WikiApiService
 
     public function getCountryDetails(string $country)
     {
-        return $this->getData( [
+        return $this->getData([
             'action' => 'query',
             'prop' => 'extracts',
             'format' => 'json',
@@ -25,7 +25,8 @@ class WikiApiService
         ]);
     }
 
-    private function getData(array $getParams){
+    private function getData(array $getParams)
+    {
         try {
             $response = Http::get(
                 $this->apiBaseUrl,

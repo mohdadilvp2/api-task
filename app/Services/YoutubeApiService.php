@@ -13,25 +13,26 @@ class YoutubeApiService
     public function __construct()
     {
         $this->apiBaseUrl = config('services.yt.endpoint');
-        $this->apiKey =config('services.yt.key');
+        $this->apiKey = config('services.yt.key');
     }
 
-    public function getMostPopularVideos(string $regionCode,int $maxResults =50,?string $pageToken = null)
+    public function getMostPopularVideos(string $regionCode, int $maxResults = 50, ?string $pageToken = null)
     {
         return $this->getData('videos', array_merge([
             'part' => 'snippet',
             'chart' => 'mostPopular',
             'maxResults' => $maxResults,
-            'fields' => 'items(id,snippet(title,description,thumbnails(high(url),default(url)))),nextPageToken,pageInfo',
-            'regionCode' => $regionCode
-        ], $pageToken !== null?['pageToken' => $pageToken]: [] ));
+            'fields' => 'items(id,snippet(title,description,thumbnails(high(url),default(url)))),nextPageToken,prevPageToken,pageInfo',
+            'regionCode' => $regionCode,
+        ], $pageToken !== null ? ['pageToken' => $pageToken] : []));
     }
 
-    private function getData(string $endpoint,array $getParams){
-        $getParamsWithKey=  array_merge($getParams, ['key' => $this->apiKey,]);
+    private function getData(string $endpoint, array $getParams)
+    {
+        $getParamsWithKey =  array_merge($getParams, ['key' => $this->apiKey,]);
         try {
             $response = Http::get(
-                $this->apiBaseUrl.$endpoint,
+                $this->apiBaseUrl . $endpoint,
                 $getParamsWithKey
             );
             if ($response->successful()) {

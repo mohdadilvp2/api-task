@@ -10,6 +10,7 @@ use App\Http\Resources\WikiDataResource;
 use App\Http\Resources\YoutubeDataResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 
 class ApiController extends Controller
 {
@@ -18,27 +19,28 @@ class ApiController extends Controller
         $supportedCountries = config('constants.supported_countries');
         $countryCode = $request->get('country_code');
         $perPage = $request->get('per_page');
+        $pageToken = $request->get('page_token') ?? null;
         $countryName = $supportedCountries[$countryCode] ?? '';
 
-        $wikiData = Cache::remember('wiki1' . $countryName, 1 /*update*/, function () use ($wikiApiService, $countryName) {
+        $wikiData = Cache::remember('wiki' . $countryName, 60 * 60 * 24, function () use ($wikiApiService, $countryName) {
             return $wikiApiService->getCountryDetails($countryName);
         });
         if (!$wikiData) {
             throw new HttpResponseException(response()->json([
                 'success'   => false,
                 'message'   => 'Wiki api error',
-            ], 500));
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR));
         }
         $wikiData = new WikiDataResource($wikiData);
 
-        $youtubeData = Cache::remember('ytvideos_' . $countryName, 1 /*update*/, function () use ($youtubeApiService, $countryCode, $perPage) {
-            return $youtubeApiService->getMostPopularVideos($countryCode, $perPage);
+        $youtubeData = Cache::remember('ytvideos_' . $countryCode . '_' . $perPage . "_" . $pageToken, 60 * 60, function () use ($youtubeApiService, $countryCode, $perPage, $pageToken) {
+            return $youtubeApiService->getMostPopularVideos($countryCode, $perPage, $pageToken);
         });
         if (!$youtubeData) {
             throw new HttpResponseException(response()->json([
                 'success'   => false,
                 'message'   => 'Youtube api error',
-            ], 500));
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR));
         }
         $youtubeData = new YoutubeDataResource($youtubeData);
 
@@ -46,8 +48,8 @@ class ApiController extends Controller
             'success'   => true,
             'data'      => [
                 'wiki' => $wikiData,
-                'videos' => $youtubeData
+                'yt_data' => $youtubeData
             ]
-        ], 200);
+        ], JsonResponse::HTTP_OK);
     }
 }
