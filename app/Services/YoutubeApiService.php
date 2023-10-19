@@ -16,7 +16,7 @@ class YoutubeApiService
         $this->apiKey = config('services.yt.key');
     }
 
-    public function getMostPopularVideos(string $regionCode, int $maxResults = 50, ?string $pageToken = null)
+    public function getMostPopularVideos(string $regionCode, int $maxResults = 50, ?string $pageToken = null): ?array
     {
         return $this->getData('videos', array_merge([
             'part' => 'snippet',
@@ -27,7 +27,7 @@ class YoutubeApiService
         ], $pageToken !== null ? ['pageToken' => $pageToken] : []));
     }
 
-    private function getData(string $endpoint, array $getParams)
+    private function getData(string $endpoint, array $getParams): ?array
     {
         $getParamsWithKey =  array_merge($getParams, ['key' => $this->apiKey,]);
         try {
@@ -42,7 +42,7 @@ class YoutubeApiService
                 return null;
             }
         } catch (\Exception $e) {
-            Log::error('Wik api call thowing error', ['exception' => $e, 'params' => $getParams]);
+            Log::error('YT api call thowing error', ['exception' => $e, 'params' => $getParams]);
             return null;
         }
     }

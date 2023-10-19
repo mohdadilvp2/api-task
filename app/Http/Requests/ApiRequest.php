@@ -8,6 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
+use App\Http\Constants\ErrorCodes;
 
 class ApiRequest extends FormRequest
 {
@@ -46,6 +47,7 @@ class ApiRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'success'   => false,
             'message'   => 'Validation errors',
+            'error_code' => ErrorCodes::VALIDATION_ERROR,
             'data'      => $validator->errors()
         ], JsonResponse::HTTP_BAD_REQUEST));
     }

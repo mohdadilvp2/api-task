@@ -14,7 +14,7 @@ class WikiApiService
         $this->apiBaseUrl = config('services.wiki.endpoint');
     }
 
-    public function getCountryDetails(string $country)
+    public function getCountryDetails(string $country): ?array
     {
         return $this->getData([
             'action' => 'query',
@@ -25,7 +25,7 @@ class WikiApiService
         ]);
     }
 
-    private function getData(array $getParams)
+    private function getData(array $getParams): ?array
     {
         try {
             $response = Http::get(
@@ -35,11 +35,11 @@ class WikiApiService
             if ($response->successful()) {
                 return $response->json();
             } else {
-                Log::error('Wik api call unsuccessful', ['response' => $response->getBody()->getContents(), 'params' => $getParams]);
+                Log::error('Wiki api call unsuccessful', ['response' => $response->getBody()->getContents(), 'params' => $getParams]);
                 return null;
             }
         } catch (\Exception $e) {
-            Log::error('Wik api call thowing error', ['exception' => $e, 'params' => $getParams]);
+            Log::error('Wiki api call thowing error', ['exception' => $e, 'params' => $getParams]);
             return null;
         }
     }

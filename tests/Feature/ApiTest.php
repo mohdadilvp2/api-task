@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
+use App\Http\Constants\ErrorCodes;
 
 class ApiTest extends TestCase
 {
@@ -31,7 +32,7 @@ class ApiTest extends TestCase
         ]);
         $response = $this->get('/api/v1/get_country_data?country_code=gb&per_page=1');
         $response->assertStatus(500)->assertJson([
-            'message' => 'Wiki api error'
+            'error_code' => ErrorCodes::WIKI_API_ERROR
         ]);
     }
 
@@ -42,7 +43,7 @@ class ApiTest extends TestCase
         ]);
         $response = $this->get('/api/v1/get_country_data?country_code=gb&per_page=1');
         $response->assertStatus(500)->assertJson([
-            'message' => 'Youtube api error'
+            'error_code' => ErrorCodes::YT_API_ERROR
         ]);
     }
 }

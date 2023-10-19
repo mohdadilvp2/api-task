@@ -11,6 +11,7 @@ use App\Http\Resources\YoutubeDataResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use App\Http\Constants\ErrorCodes;
 
 class ApiController extends Controller
 {
@@ -28,6 +29,7 @@ class ApiController extends Controller
         if (!$wikiData) {
             throw new HttpResponseException(response()->json([
                 'success'   => false,
+                'error_code' =>ErrorCodes::WIKI_API_ERROR,
                 'message'   => 'Wiki api error',
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR));
         }
@@ -39,6 +41,7 @@ class ApiController extends Controller
         if (!$youtubeData) {
             throw new HttpResponseException(response()->json([
                 'success'   => false,
+                'error_code' => ErrorCodes::YT_API_ERROR,
                 'message'   => 'Youtube api error',
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR));
         }
