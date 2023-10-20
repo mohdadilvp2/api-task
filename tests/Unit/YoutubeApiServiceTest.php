@@ -29,7 +29,7 @@ class YoutubeApiServiceTest extends TestCase
             'https://www.googleapis.com/youtube/v3/videos*' => Http::response(['error' => 'Not Found'], 404),
         ]);
         $yutubeApiService = new YoutubeApiService();
-        $data = $yutubeApiService->getMostPopularVideos('uk');
+        $data = $yutubeApiService->getMostPopularVideos('gb');
         $this->assertNull($data);
     }
 }
