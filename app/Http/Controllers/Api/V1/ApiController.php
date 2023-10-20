@@ -23,6 +23,7 @@ class ApiController extends Controller
         $pageToken = $request->get('page_token') ?? null;
         $countryName = $supportedCountries[$countryCode] ?? '';
 
+        // Cache the result for one day
         $wikiData = Cache::remember('wiki' . $countryName, 60 * 60 * 24, function () use ($wikiApiService, $countryName) {
             return $wikiApiService->getCountryDetails($countryName);
         });
@@ -35,6 +36,7 @@ class ApiController extends Controller
         }
         $wikiData = new WikiDataResource($wikiData);
 
+        // Cache the result for one hour
         $youtubeData = Cache::remember('ytvideos_' . $countryCode . '_' . $perPage . "_" . $pageToken, 60 * 60, function () use ($youtubeApiService, $countryCode, $perPage, $pageToken) {
             return $youtubeApiService->getMostPopularVideos($countryCode, $perPage, $pageToken);
         });
