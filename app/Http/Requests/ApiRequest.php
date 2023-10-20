@@ -30,7 +30,7 @@ class ApiRequest extends FormRequest
         return [
             'country_code' => ['required', Rule::in(array_keys(config('constants.supported_countries')))],
             'page_token' => 'string',
-            'per_page' => 'required|int',
+            'per_page' => 'required|numeric|min:1|max:50',
         ];
     }
 
